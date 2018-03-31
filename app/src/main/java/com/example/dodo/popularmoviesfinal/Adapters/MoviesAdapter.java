@@ -1,18 +1,41 @@
 package com.example.dodo.popularmoviesfinal.Adapters;
 
+import android.content.Context;
+import android.graphics.Movie;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.dodo.popularmoviesfinal.R;
+
+import java.util.List;
 
 /**
  * Created by Dodo on 3/30/2018.
  */
 
-public class MoviesAdapter {
+public class MoviesAdapter extends RecyclerView.Adapter {
 
     public  ImageView image_poster;
+
+    public MoviesAdapter(List<Movie> movies, int list_item, Context applicationContext) {
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
 
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {

@@ -23,9 +23,10 @@ public interface ApiInterface {
 
 
   @GET("/3/movie/{category}")
-  Call<List<MoviesData> >getMovieList(@Path("category") String category, @Query("api_key") String key);
+  Call<List<MoviesData> >getMovieList(@Path("category") String category, @Query("api_key") String API_KEY);
 
- // @GET("movie/top_rated")
+
+  // @GET("movie/top_rated")
  // Call<MoviesData> getTopRatedMovies(@Query("api_key") String apiKey);
 
 
