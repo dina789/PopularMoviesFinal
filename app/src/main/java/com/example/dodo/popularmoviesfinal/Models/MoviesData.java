@@ -59,8 +59,8 @@ import java.util.List;
 
 
         public MoviesData(String posterPath, boolean adult, String overview, String releaseDate, List<Integer> genreIds, Integer id,
-                     String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity,
-                     Integer voteCount, Boolean video, Double voteAverage) {
+                          String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity,
+                          Integer voteCount, Boolean video, Double voteAverage) {
             this.posterPath = posterPath;
             this.adult = adult;
             this.overview = overview;
@@ -158,6 +158,10 @@ import java.util.List;
 
         public void setReleaseDate(String releaseDate) {
             this.releaseDate = releaseDate;
+        }
+
+        public static int get(int position) {
+            return position;
         }
 
     }

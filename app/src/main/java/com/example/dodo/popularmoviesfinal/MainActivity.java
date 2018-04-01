@@ -4,6 +4,7 @@ import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 
@@ -19,6 +20,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+
+//Notes:
+/**The correct would be create a object that contains a list of movies.
+ *  Then, you can create the API interface returns that responde object. */
+
 public class MainActivity extends AppCompatActivity {
 
     private List<MoviesData> MovieList= new ArrayList<>();
@@ -32,14 +39,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+// Add a toolbar:
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
 
 
 
 
 
 
-
-    // Initialize recycler view
+        // Initialize recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
 //yet, grid layout manager
