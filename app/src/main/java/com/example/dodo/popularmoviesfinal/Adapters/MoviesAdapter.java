@@ -153,7 +153,7 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
 
 //https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/ArrayAdapter.java
 
-//to be removed http://mateoj.com/2015/10/06/creating-movies-app-retrofit-picasso-android/
+   // http://mateoj.com/2015/10/06/creating-movies-app-retrofit-picasso-android/
 /*  https://classroom.udacity.com/nanodegrees/nd801/parts/9bb83157-0407-47dc-b0c4-c3d4d7dc66df/modules/418d7086-8596-4c73-8d1b-8bddef80c116/lessons/c81cb722-d20a-495a-83c6-6890a6142aac/concepts/ae70fe56-dbd3-446c-be43-b8da0f076ea6
 https://discussions.udacity.com/t/let-s-share-popular-movies-stage-1-code-review-comments/635604
 https://www.androidhive.info/2017/09/android-recyclerview-swipe-delete-undo-using-itemtouchhelper/
