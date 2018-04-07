@@ -3,7 +3,6 @@ package com.example.dodo.popularmoviesfinal.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -55,12 +54,7 @@ public class Details_Activity extends AppCompatActivity {
         Picasso.with(getBaseContext()).load("http://image.tmdb.org/t/p/w500/" + movieModel.getPosterPath()).into(image_poster);
 
     }
-    public void onBackButtonClick (View view)
-    {
-        //Back Code
-        Intent intent = new Intent(Details_Activity.this , MainActivity.class);
-        startActivity(intent);
-    }
+
 
     }
 
