@@ -14,7 +14,7 @@ public class MovieResponse  {
 
         private List<MoviesData> results;
 
-          public List<MoviesData>getResults() {
+          public List<MoviesData> getResults() {
               return results;
           }
 

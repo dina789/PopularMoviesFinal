@@ -10,15 +10,15 @@ import android.view.Menu;
 import com.example.dodo.popularmoviesfinal.Adapters.MoviesAdapter;
 import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 import com.example.dodo.popularmoviesfinal.Models.MoviesData;
-import com.example.dodo.popularmoviesfinal.Network.Api;
 import com.example.dodo.popularmoviesfinal.Network.ApiInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 //Notes:
@@ -27,7 +27,11 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements
 
+
        MoviesAdapter.MoviesAdapterOnClickHandler {
+    private static final String TAG = MainActivity.class.getSimpleName();
+    public static final String BASE_URL = "http://api.themoviedb.org/3/";
+    private static Retrofit retrofit = null;
 
  // private List<MoviesData> MovieList= new ArrayList<>();
   private final static String API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
@@ -41,52 +45,51 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 // Add a toolbar:
-      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  setSupportActionBar(toolbar);
-
-
-
+        //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //  setSupportActionBar(toolbar);
 
 
         // Initialize recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
 
-
-        MoviesAdapter  moviesAdapter = new MoviesAdapter(this, this);
+        MoviesAdapter moviesAdapter = new MoviesAdapter(this, this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
-        recyclerView.setAdapter( moviesAdapter);
+        recyclerView.setAdapter(moviesAdapter);
 
 
 // grid layout manager
         recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
 
         recyclerView.setHasFixedSize(true);
+        connectAndGetApiData();
+    }
+
+    private void connectAndGetApiData() {
 
 
+        if (retrofit == null) {
 
+            retrofit = new Retrofit.Builder()
 
-//failed to implement swiperefresh:(
-        //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-      //  swipeRefreshLayout.setOnRefreshListener((SwipeRefreshLayout.OnRefreshListener) this);
- /*
-     * Using findViewById, we get a reference to our RecyclerView from xml. This allows us to
-         * do things like set the adapter of the RecyclerView and toggle the visibility.
-         */
+                    .baseUrl(BASE_URL)
 
+                    .addConverterFactory(GsonConverterFactory.create())
 
+                    .build();
 
-        ApiInterface apiService =
-                Api.getClient().create(ApiInterface.class);
+        }
+        ApiInterface movieApiService = retrofit.create(   ApiInterface.class);
 
-        Call< MovieResponse> call = apiService.getMovieList(API_KEY);
+        Call<MovieResponse> call = movieApiService.getTop_rated(API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response< MovieResponse> response) {
-                int statusCode = response.code();
-                MovieResponse moviesData=response.body();
-                recyclerView.setAdapter(new MoviesAdapter(moviesData.getResults() , R.layout.list_item , getApplicationContext()));
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                List<MoviesData> movies = response.body().getResults();
+                recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item,getApplicationContext()));
+
+
             }
 
             @Override
@@ -130,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-
+//https://github.com/schordas/RetroStack/blob/master/app/src/main/java/com/android/chordas/retrostack/MainActivity.java
 /*
 //https://www.youtube.com/watch?v=OOLFhtyCspA&t=3625s
         //https://classroom.udacity.com/nanodegrees/nd801/parts/9bb83157-0407-47dc-b0c4-c3d4d7dc66df/modules/418d7086-8596-4c73-8d1b-8bddef80c116/lessons/5a9d75c2-eb50-4a06-b1ed-b30645f27fdf/concepts/73e97b9e-4ca1-4520-baa1-1f475f5b7bfb
@@ -164,6 +167,8 @@ https://android.jlelse.eu/consuming-rest-api-using-retrofit-library-in-android-e
 
 if use retrofit check:
 
+https://discussions.udacity.com/t/retrofit-webcast/45754/2
+https://plus.google.com/events/ctnno460ac50g2c6h3r99ph0r5k?authkey=CJy1hpmurNfU6gE
 https://inthecheesefactory.com/blog/say-goodbye-to-findviewbyid-with-data-binding-library/en
 
 Wiring up recycler view:
@@ -176,4 +181,4 @@ https://discussions.udacity.com/t/unknownhostexception-retrofit/619700
 https://discussions.udacity.com/t/butterknife-where-to-bind-viewholder-views-in-recyclerview-adapter/642159/8
 
 */
-https://api.themoviedb.org/3/movie/343611?api_key={api_key}&append_to_response=videos
+//https://api.themoviedb.org/3/movie/343611?api_key={api_key}&append_to_response=videos

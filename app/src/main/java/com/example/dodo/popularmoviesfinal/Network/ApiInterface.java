@@ -6,31 +6,34 @@ import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Dodo on 3/31/2018.
  */
-
 public interface ApiInterface {
 
     // Request method and URL specified in the annotation
     // Callback for the parsed response is the last parameter
 
 
+  @GET("/3/movie/top_rated")
 
+  Call<MovieResponse> getTop_rated(@Query("api_key") String apiKey);
 
-  @GET("/3/movie/{category}")
-  Call<MovieResponse>getMovieList(@Path("category") String category);
+  @GET("/3/movie/popular")
+  Call<MovieResponse> getpopular(@Path("popular") String popular);
 
 }
-
-  // @GET("movie/top_rated")
- // Call<MoviesData> getTopRatedMovies(@Query("api_key") String apiKey);
-
 
 
 
 /*
+
+I have also noticed there are these 2 endpoints:
+https://api.themoviedb.org/3/movie/popular?api_key=
+and
+https://api.themoviedb.org/3/movie/top_rated?api_key=
 
 https://android.jlelse.eu/consuming-rest-api-using-retrofit-library-in-android-ed47aef01ecb
 on endpoint from the forum;

@@ -33,7 +33,6 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
 
 
 
-
     /**
      * The interface that receives onClick messages.
      *
