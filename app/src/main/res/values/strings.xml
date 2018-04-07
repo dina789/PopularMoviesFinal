@@ -7,4 +7,8 @@
     <string name="most_popular" />
     <string name="pref_sort_key">pref_sort_key</string>
     <string name="pref_sort_label">pref_sort_key</string>
+    <string name="text_original_title">TextView</string>
+    <string name="text_overview">text_overview</string>
+    <string name="text_vote_average">text_vote_average</string>
+    <string name="text_release_date">text_release_date</string>
 </resources>
