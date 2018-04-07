@@ -1,4 +1,4 @@
-package com.example.dodo.popularmoviesfinal;
+package com.example.dodo.popularmoviesfinal.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import com.example.dodo.popularmoviesfinal.Adapters.MoviesAdapter;
 import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.Network.ApiInterface;
+import com.example.dodo.popularmoviesfinal.R;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity implements
 
 
-       MoviesAdapter.MoviesAdapterOnClickHandler {
+        MoviesAdapter.MoviesAdapterOnClickHandler {
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final String BASE_URL = "http://api.themoviedb.org/3/";
     private static Retrofit retrofit = null;
@@ -86,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                List<MoviesData> movies = response.body().getResults();
-                recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item,getApplicationContext()));
+                List<MoviesData> mMovieList = response.body().getResults();
+                recyclerView.setAdapter(new MoviesAdapter(mMovieList, R.layout.list_item,getApplicationContext()));
 
 
             }

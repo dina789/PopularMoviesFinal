@@ -2,7 +2,6 @@ package com.example.dodo.popularmoviesfinal.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +25,7 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
     private Cursor mCursor;
     private final Context  mContext;
     public  ImageView image_poster;
-    // public static final String IMAGE_URL_BASE_PATH="http://image.tmdb.org/t/p/w342//";
+    public static final String IMAGE_URL_BASE_PATH="https://api.themoviedb.org/3/movie/343611?api_key";
 
    final private MoviesAdapterOnClickHandler mClickHandler;
 
@@ -39,6 +37,9 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
      */
 
     public interface MoviesAdapterOnClickHandler {
+
+
+
         void onClick(long date);
     }
 
@@ -52,13 +53,13 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
      */
 
 
-    public MoviesAdapter(@NonNull Context context, MoviesAdapterOnClickHandler clickHandler )
+    public MoviesAdapter(List<MoviesData> mMovieList ,Context context, MoviesAdapterOnClickHandler clickHandler )
     {
 
         mContext = context;
         mClickHandler = clickHandler;
+        this.mMovieList = mMovieList;
 
-        this.mMovieList = new ArrayList<>();
     }
 
 
