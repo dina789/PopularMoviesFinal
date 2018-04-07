@@ -30,8 +30,8 @@ public class Details_Activity extends AppCompatActivity {
 
 
         text_release_date = (TextView) findViewById(R.id.text_release_date);
-        //still setting the release date.
 
+       text_release_date.setText(movieModel.getReleaseDate().substring(0, 4));
         text_vote_average = (TextView) findViewById(R.id.text_vote_average);
         text_overview = (TextView) findViewById(R.id.text_overview);
         text_original_title = (TextView) findViewById(R.id.text_original_title);
@@ -64,3 +64,4 @@ public class Details_Activity extends AppCompatActivity {
 
     }
 
+//https://findusages.com/search/info.movito.themoviedbapi.model.MovieDb/getReleaseDate$0?offset=1
