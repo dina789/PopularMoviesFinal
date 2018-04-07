@@ -1,12 +1,14 @@
 package com.example.dodo.popularmoviesfinal.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.dodo.popularmoviesfinal.Activities.Details_Activity;
 import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.R;
 import com.squareup.picasso.Picasso;
@@ -76,11 +78,29 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
         public MovieViewHolder(View itemView) {
             super(itemView);
             image_poster = (ImageView) itemView.findViewById(R.id.image_poster);
+           /** It's also a convenient place to set an
+                    * OnClickListener, since it has access to the adapter and the views.*/
+            itemView.setOnClickListener(this);
         }
-
+        /**
+         * This gets called by the child views during a click. We fetch the date that has been
+         * selected, and then call the onClick handler registered with this adapter, passing that
+         * date.
+         *
+         * @param v the View that was clicked
+         */
         @Override
         public void onClick(View v) {
             // itemView.setOnClickListener();
+
+            int adapterPosition = getAdapterPosition();
+
+            Intent intent = new Intent(v.getContext(), Details_Activity.class);
+            MoviesData currentMovie = mMovieList.get(getAdapterPosition());
+            intent.putExtra("movieModel", currentMovie);
+            v.getContext().startActivity(intent);
+         // String  movieList = (adapterPosition);
+            //mClickHandler.onClick(moviesList);
         }
     }
 }
@@ -102,8 +122,6 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
     // }
 
 //done yet implement on click listener
-
-
 
 //https://www.youtube.com/watch?v=OOLFhtyCspA&t=3625s
 
@@ -130,5 +148,7 @@ postpone using data binding!:
 better use recycler view and data binding
 https://discussions.udacity.com/t/data-binding-recycler-view-item/6071
 https://blog.jayway.com/2015/12/08/recyclerview-and-databinding/
- */
+ *///https://github.com/laramartin/android_movies/blob/master/app/src/main/java/eu/laramartin/popularmovies/ui/MoviesAdapter.java
 //https://github.com/schordas/RetroStack/blob/master/app/src/main/java/com/android/chordas/retrostack/QuestionsAdapter.java
+
+//setting on click listener, should i do it on bind view ?https://stackoverflow.com/questions/26682277/how-do-i-get-the-position-selected-in-a-recyclerview

@@ -111,9 +111,6 @@ recyclerView.setAdapter(moviesAdapter);
         //set menu item title based on sort key
 
 
-
-
-
         return super.onCreateOptionsMenu(menu);
 
 

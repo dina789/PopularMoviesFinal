@@ -22,7 +22,7 @@ public interface ApiInterface {
   Call<MovieResponse> getTop_rated(@Query("api_key") String apiKey);
 
   @GET("/3/movie/popular")
-  Call<MovieResponse> getpopular(@Path("popular") String popular);
+  Call<MovieResponse> getPopular(@Path("popular") String popular);
 
 }
 
