@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 
 import com.example.dodo.popularmoviesfinal.Adapters.MoviesAdapter;
 import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements
 
         MoviesAdapter.MoviesAdapterOnClickHandler {
 
+
+    public interface OnItemClickListener {
+        public void onClick(View view, int position);
+    }
 public List<MoviesData> mMovieList= new ArrayList<>();
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -68,6 +73,8 @@ recyclerView.setAdapter(moviesAdapter);
 
         recyclerView.setHasFixedSize(true);
         connectAndGetApiData();
+
+
     }
 
     private void connectAndGetApiData() {

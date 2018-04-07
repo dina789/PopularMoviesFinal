@@ -22,8 +22,6 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
     private List<MoviesData> mMovieList;
     private final Context mContext;
 
-    private final MoviesAdapterOnClickHandler mClickHandler;
-
     public void setItems(List<MoviesData> mMovieList) {
         this.mMovieList = mMovieList;
         notifyDataSetChanged();
@@ -43,7 +41,7 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
      */
     public MoviesAdapter(List<MoviesData> mMovieList, Context context, MoviesAdapterOnClickHandler clickHandler) {
         this.mContext = context;
-        this.mClickHandler = clickHandler;
+        MoviesAdapterOnClickHandler mClickHandler  = clickHandler;
         this.mMovieList = mMovieList;
     }
 
@@ -77,7 +75,7 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
 
         public MovieViewHolder(View itemView) {
             super(itemView);
-            image_poster = (ImageView) itemView.findViewById(R.id.image_poster);
+            image_poster = itemView.findViewById(R.id.image_poster);
            /** It's also a convenient place to set an
                     * OnClickListener, since it has access to the adapter and the views.*/
             itemView.setOnClickListener(this);
@@ -91,16 +89,14 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
          */
         @Override
         public void onClick(View v) {
-            // itemView.setOnClickListener();
 
-            int adapterPosition = getAdapterPosition();
+            getAdapterPosition();
 
             Intent intent = new Intent(v.getContext(), Details_Activity.class);
             MoviesData currentMovie = mMovieList.get(getAdapterPosition());
             intent.putExtra("movieModel", currentMovie);
             v.getContext().startActivity(intent);
-         // String  movieList = (adapterPosition);
-            //mClickHandler.onClick(moviesList);
+
         }
     }
 }
