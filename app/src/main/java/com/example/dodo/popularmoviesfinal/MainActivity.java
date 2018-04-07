@@ -1,8 +1,5 @@
 package com.example.dodo.popularmoviesfinal;
 
-import android.app.LoaderManager;
-import android.database.Cursor;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.example.dodo.popularmoviesfinal.Adapters.MoviesAdapter;
+import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.Network.Api;
 import com.example.dodo.popularmoviesfinal.Network.ApiInterface;
@@ -23,7 +21,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-
 //Notes:
 /**The correct would be create a object that contains a list of movies.
  *  Then, you can create the API interface returns that responde object. */
@@ -32,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements
 
        MoviesAdapter.MoviesAdapterOnClickHandler {
 
-    private List<MoviesData> MovieList= new ArrayList<>();
-    private final static String API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
+ // private List<MoviesData> MovieList= new ArrayList<>();
+  private final static String API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
 
   //  private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -83,18 +80,17 @@ public class MainActivity extends AppCompatActivity implements
         ApiInterface apiService =
                 Api.getClient().create(ApiInterface.class);
 
-        Call<MoviesData> call = apiService.getMovieList(API_KEY);
-        call.enqueue(new Callback<MoviesData>() {
-
-            public void onResponse(Call<MoviesData> call, Response<MoviesData> response) {
-                @Override
-                  int statusCode = response.code();
-                List<Movie> movies = response.body().getResults();
-                recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item, getApplicationContext()));
+        Call< MovieResponse> call = apiService.getMovieList(API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response< MovieResponse> response) {
+                int statusCode = response.code();
+                MovieResponse moviesData=response.body();
+                recyclerView.setAdapter(new MoviesAdapter(moviesData.getResults() , R.layout.list_item , getApplicationContext()));
             }
 
             @Override
-            public void onFailure(Call<MoviesData> call, Throwable t) {
+            public void onFailure(Call< MovieResponse> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
             }
@@ -136,7 +132,12 @@ public class MainActivity extends AppCompatActivity implements
 
 
 /*
+//https://www.youtube.com/watch?v=OOLFhtyCspA&t=3625s
+        //https://classroom.udacity.com/nanodegrees/nd801/parts/9bb83157-0407-47dc-b0c4-c3d4d7dc66df/modules/418d7086-8596-4c73-8d1b-8bddef80c116/lessons/5a9d75c2-eb50-4a06-b1ed-b30645f27fdf/concepts/73e97b9e-4ca1-4520-baa1-1f475f5b7bfb
 
+a guide:
+
+https://discussions.udacity.com/t/popular-movies-stage1-help/618976/17
 
 to implement and check:
 https://classroom.udacity.com/nanodegrees/nd801/parts/9bb83157-0407-47dc-b0c4-c3d4d7dc66df/modules/418d7086-8596-4c73-8d1b-8bddef80c116/lessons/c81cb722-d20a-495a-83c6-6890a6142aac/concepts/3da2dca7-50a2-413b-958c-987080988ae1
@@ -158,6 +159,9 @@ https://google-developer-training.gitbooks.io/android-developer-fundamentals-cou
 https://material.io/guidelines/patterns/settings.html#settings-usage
 
 
+how to use retrofit double check:
+https://android.jlelse.eu/consuming-rest-api-using-retrofit-library-in-android-ed47aef01ecb
+
 if use retrofit check:
 
 https://inthecheesefactory.com/blog/say-goodbye-to-findviewbyid-with-data-binding-library/en
@@ -172,3 +176,4 @@ https://discussions.udacity.com/t/unknownhostexception-retrofit/619700
 https://discussions.udacity.com/t/butterknife-where-to-bind-viewholder-views-in-recyclerview-adapter/642159/8
 
 */
+https://api.themoviedb.org/3/movie/343611?api_key={api_key}&append_to_response=videos

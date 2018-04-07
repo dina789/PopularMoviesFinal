@@ -1,14 +1,11 @@
 package com.example.dodo.popularmoviesfinal.Network;
 
 
-import com.example.dodo.popularmoviesfinal.Models.MoviesData;
-
-import java.util.List;
+import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by Dodo on 3/31/2018.
@@ -23,17 +20,21 @@ public interface ApiInterface {
 
 
   @GET("/3/movie/{category}")
-  Call<List<MoviesData> >getMovieList(@Path("category") String category, @Query("api_key") String API_KEY);
+  Call<MovieResponse>getMovieList(@Path("category") String category);
 
+}
 
   // @GET("movie/top_rated")
  // Call<MoviesData> getTopRatedMovies(@Query("api_key") String apiKey);
 
 
 
-}
+
 /*
+
+https://android.jlelse.eu/consuming-rest-api-using-retrofit-library-in-android-ed47aef01ecb
 on endpoint from the forum;
+https://discussions.udacity.com/t/confusion-with-api-endpoint-for-sorting-by-popular-or-top-rated/222344/2
 
 https://discussions.udacity.com/t/using-retrofit-firsttime/366768/9
 

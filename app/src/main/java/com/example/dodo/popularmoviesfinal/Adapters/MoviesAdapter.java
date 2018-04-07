@@ -30,6 +30,10 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
     // public static final String IMAGE_URL_BASE_PATH="http://image.tmdb.org/t/p/w342//";
 
    final private MoviesAdapterOnClickHandler mClickHandler;
+
+
+
+
     /**
      * The interface that receives onClick messages.
      *
@@ -150,6 +154,9 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
 
 
 }
+
+
+//https://www.youtube.com/watch?v=OOLFhtyCspA&t=3625s
 
 //https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/ArrayAdapter.java
 

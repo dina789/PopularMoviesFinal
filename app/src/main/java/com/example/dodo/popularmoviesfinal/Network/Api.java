@@ -3,9 +3,6 @@ package com.example.dodo.popularmoviesfinal.Network;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Dodo on 3/31/2018.
- */
 
 public class Api {
     public static final String BASE_URL = "http://api.themoviedb.org/3/";
