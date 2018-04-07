@@ -13,6 +13,7 @@ import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.Network.ApiInterface;
 import com.example.dodo.popularmoviesfinal.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,10 +31,13 @@ public class MainActivity extends AppCompatActivity implements
 
 
         MoviesAdapter.MoviesAdapterOnClickHandler {
+
+public List<MoviesData> mMovieList= new ArrayList<>();
+
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final String BASE_URL = "http://api.themoviedb.org/3/";
     private static Retrofit retrofit = null;
-
+    MoviesAdapter moviesAdapter;
  // private List<MoviesData> MovieList= new ArrayList<>();
   private final static String API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
 
@@ -53,11 +57,10 @@ public class MainActivity extends AppCompatActivity implements
         // Initialize recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-
-        MoviesAdapter moviesAdapter = new MoviesAdapter(this, this);
+MoviesAdapter moviesAdapter = new MoviesAdapter(new ArrayList<MoviesData>(),this, this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
-        recyclerView.setAdapter(moviesAdapter);
+recyclerView.setAdapter(moviesAdapter);
 
 
 // grid layout manager
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<MoviesData> mMovieList = response.body().getResults();
-                recyclerView.setAdapter(new MoviesAdapter(mMovieList, R.layout.list_item,getApplicationContext()));
+                moviesAdapter.setItems(mMovieList);
 
 
             }
@@ -183,3 +186,12 @@ https://discussions.udacity.com/t/butterknife-where-to-bind-viewholder-views-in-
 
 */
 //https://api.themoviedb.org/3/movie/343611?api_key={api_key}&append_to_response=videos
+
+/*
+https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit
+https://stackoverflow.com/questions/40012341/how-to-define-api-endpoint-for-retrofit
+https://futurestud.io/tutorials/retrofit-optional-query-parameters
+https://inthecheesefactory.com/blog/retrofit-2.0/en
+https://www.androidhive.info/2016/05/android-working-with-retrofit-http-library/
+https://www.androidhive.info/2016/05/android-working-with-retrofit-http-library/
+ */
