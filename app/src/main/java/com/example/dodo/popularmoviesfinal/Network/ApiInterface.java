@@ -7,9 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-/**
- * Created by Dodo on 3/31/2018.
- */
+
 public interface ApiInterface {
 
     // Request method and URL specified in the annotation
@@ -18,10 +16,10 @@ public interface ApiInterface {
 
   @GET("/3/movie/top_rated")
 
-  Call<MovieResponse> getTop_rated(@Query("api_key") String apiKey);
+  Call<MovieResponse> getTop_rated(@Query("api_key") String API_KEY);
 
   @GET("/3/movie/popular")
-  Call<MovieResponse> getPopular(@Query("popular") String apiKey);
+  Call<MovieResponse> getPopular(@Query("api_key") String API_KEY);
 
 }
 

@@ -31,7 +31,8 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
      * The interface that receives onClick messages.
      */
     public interface MoviesAdapterOnClickHandler {
-        void onClick(long date);
+
+        void onClick(MoviesData moviesData);
     }
 
     /**
@@ -41,7 +42,6 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
      */
     public MoviesAdapter(List<MoviesData> mMovieList, Context context, MoviesAdapterOnClickHandler clickHandler) {
         this.mContext = context;
-        MoviesAdapterOnClickHandler mClickHandler  = clickHandler;
         this.mMovieList = mMovieList;
     }
 
@@ -71,13 +71,13 @@ public class MoviesAdapter extends RecyclerView.Adapter < MoviesAdapter.MovieVie
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView image_poster;
+        public final ImageView image_poster;
 
         public MovieViewHolder(View itemView) {
             super(itemView);
             image_poster = itemView.findViewById(R.id.image_poster);
-           /** It's also a convenient place to set an
-                    * OnClickListener, since it has access to the adapter and the views.*/
+           /* It's also a convenient place to set an
+                     OnClickListener, since it has access to the adapter and the views.*/
             itemView.setOnClickListener(this);
         }
         /**

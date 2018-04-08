@@ -1,5 +1,9 @@
 package com.example.dodo.popularmoviesfinal.Activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -7,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.dodo.popularmoviesfinal.Adapters.MoviesAdapter;
 import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
@@ -29,58 +32,91 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**The correct would be create a object that contains a list of movies.
  *  Then, you can create the API interface returns that responde object. */
 
-public class MainActivity extends AppCompatActivity implements
+@SuppressWarnings("ALL")
+public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler
 
+{
 
-        MoviesAdapter.MoviesAdapterOnClickHandler {
-
-
-    public interface OnItemClickListener {
-        public void onClick(View view, int position);
-    }
-public List<MoviesData> mMovieList= new ArrayList<>();
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    public static final String BASE_URL = "http://api.themoviedb.org/3/";
+
+    private static final String BASE_URL = "http://api.themoviedb.org/3/";
+
     private static Retrofit retrofit = null;
-    MoviesAdapter moviesAdapter;
 
+    private MoviesAdapter moviesAdapter;
 
- // private List<MoviesData> MovieList= new ArrayList<>();
-  private final static String API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
+  private final static String API_KEY = "add api key";
 
   //  private SwipeRefreshLayout swipeRefreshLayout;
-
-    private RecyclerView recyclerView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-// Add a toolbar:
-        //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //  setSupportActionBar(toolbar);
+
+        setupAdapter();
+        fetchMostPopular();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.setting_menu, menu);
+        //set menu item title based on sort key
 
 
-        // Initialize recycler view
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-MoviesAdapter moviesAdapter = new MoviesAdapter(new ArrayList<MoviesData>(),this, this);
-
-        /* Setting the adapter attaches it to the RecyclerView in our layout. */
-recyclerView.setAdapter(moviesAdapter);
-
-
-// grid layout manager
-        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
-
-        recyclerView.setHasFixedSize(true);
-        connectAndGetApiData();
+        return super.onCreateOptionsMenu(menu);
 
 
     }
 
-    private void connectAndGetApiData() {
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.most_popular) {
+            fetchMostPopular();
+            return true;
+        }
+
+        if (id == R.id.top_rated) {
+            fetchTopRated();
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+
+    public void onClick(MoviesData moviesData) {
+        Intent intent = new Intent(this, Details_Activity.class);
+        intent.putExtra("movieModel", moviesData);
+        startActivity(intent);
+    }
+
+    private void setupAdapter() {
+        // Initialize recycler view
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+      MoviesAdapter moviesAdapter = new MoviesAdapter(new ArrayList<MoviesData>(),this, this);
+
+        /* Setting the adapter attaches it to the RecyclerView in our layout. */
+        recyclerView.setAdapter(moviesAdapter);
+
+
+        // grid layout manager
+        recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+
+        recyclerView.setHasFixedSize(true);
+    }
+
+
+    private void fetchMostPopular() {
 
 
         if (retrofit == null) {
@@ -94,16 +130,16 @@ recyclerView.setAdapter(moviesAdapter);
                     .build();
 
         }
-        ApiInterface movieApiService = retrofit.create(   ApiInterface.class);
 
-        Call<MovieResponse> call = movieApiService.getTop_rated(API_KEY);
+        ApiInterface movieApiService = retrofit.create(ApiInterface.class);
+
+        Call<MovieResponse> call = movieApiService.getPopular(API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<MoviesData> mMovieList = response.body().getResults();
                 moviesAdapter.setItems(mMovieList);
-
-
             }
 
             @Override
@@ -115,34 +151,42 @@ recyclerView.setAdapter(moviesAdapter);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.setting_menu, menu);
-        //set menu item title based on sort key
+    private void fetchTopRated() {
 
-
-        return super.onCreateOptionsMenu(menu);
-
-
-    } @Override public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-            return true;
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
 
+        ApiInterface movieApiService = retrofit.create(ApiInterface.class);
+        Call<MovieResponse> call = movieApiService.getTop_rated(API_KEY);
+        call.enqueue(new Callback<MovieResponse>() {
+            @SuppressWarnings("ConstantConditions")
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                List<MoviesData> mMovieList = response.body().getResults();
+                moviesAdapter.setItems(mMovieList);
+            }
 
-       // return super.onOptionsItemSelected(item);
-  //  }
-
-    @Override
-    public void onClick(long date) {
-
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString());
+            }
+        });
     }
-}
 
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+}
 
 
 

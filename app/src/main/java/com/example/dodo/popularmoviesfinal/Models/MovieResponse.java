@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by Dodo on 4/7/2018.
- */
+
 
 public class MovieResponse  {
 

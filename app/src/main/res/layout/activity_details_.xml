@@ -34,7 +34,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:contentDescription="TODO"
+        tools:ignore="ContentDescription,HardcodedText,UnusedAttribute" />
 
         <RatingBar
             android:id="@+id/rating_bar"
@@ -43,7 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:numStars="10"
-            android:stepSize="0.1" />
+            android:stepSize="0.1"
+            android:layout_marginStart="8dp" />
 
         <TextView
             android:id="@+id/text_original_title"
@@ -58,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_overview"
@@ -73,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_original_title"
-            />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_vote_average"
@@ -89,7 +92,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_release_date"
@@ -105,7 +108,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_vote_average"
-            />
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 
