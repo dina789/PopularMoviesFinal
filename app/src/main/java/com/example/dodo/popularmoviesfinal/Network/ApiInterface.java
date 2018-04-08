@@ -5,7 +5,6 @@ import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -22,7 +21,7 @@ public interface ApiInterface {
   Call<MovieResponse> getTop_rated(@Query("api_key") String apiKey);
 
   @GET("/3/movie/popular")
-  Call<MovieResponse> getPopular(@Path("popular") String popular);
+  Call<MovieResponse> getPopular(@Query("popular") String apiKey);
 
 }
 

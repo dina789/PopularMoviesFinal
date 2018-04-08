@@ -44,6 +44,8 @@ public List<MoviesData> mMovieList= new ArrayList<>();
     public static final String BASE_URL = "http://api.themoviedb.org/3/";
     private static Retrofit retrofit = null;
     MoviesAdapter moviesAdapter;
+
+
  // private List<MoviesData> MovieList= new ArrayList<>();
   private final static String API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
 
@@ -128,13 +130,12 @@ recyclerView.setAdapter(moviesAdapter);
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+
+       // return super.onOptionsItemSelected(item);
+  //  }
 
     @Override
     public void onClick(long date) {
