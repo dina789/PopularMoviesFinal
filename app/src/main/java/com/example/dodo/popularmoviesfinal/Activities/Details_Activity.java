@@ -1,9 +1,7 @@
 package com.example.dodo.popularmoviesfinal.Activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -13,12 +11,9 @@ import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.Objects;
-
 public class Details_Activity extends AppCompatActivity {
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +27,7 @@ public class Details_Activity extends AppCompatActivity {
         TextView text_release_date = findViewById(R.id.text_release_date);
 
        text_release_date.setText(movieModel.getReleaseDate().substring(0, 4));
-        TextView text_vote_average = findViewById(R.id.text_vote_average);
+       // TextView text_vote_average = findViewById(R.id.text_vote_average);
 
         TextView text_overview = findViewById(R.id.text_overview);
         TextView text_original_title = findViewById(R.id.text_original_title);
@@ -43,16 +38,16 @@ public class Details_Activity extends AppCompatActivity {
 
         RatingBar rating_bar= findViewById(R.id.rating_bar);
 
-        text_original_title.setText(movieModel.getTitle()); //original title
-        text_overview.setText(movieModel.getOverview());  //overview
-        if (Objects.equals(movieModel.getOverview(), "")) {
+        text_original_title.setText(movieModel.getOriginalTitle()); //original title
+        text_overview .setText(movieModel.getOverview());  //overview
+        if (movieModel.getOverview() == "") {
             text_overview.setText("Overview:\n Overview not available !!");
         }
 
 
         double rate = movieModel.getVoteAverage();
         rate = rate /2;
-        rating_bar.setRating((float) rate);
+       rating_bar.setRating((float) rate);
 
 
 

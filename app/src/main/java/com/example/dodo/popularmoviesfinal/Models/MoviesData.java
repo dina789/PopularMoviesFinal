@@ -6,14 +6,17 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 
-    public class MoviesData implements Serializable
+    public class MoviesData implements Serializable{
 
-{
-
-
-
-
-
+        @SerializedName("vote_count")
+        @Expose
+        private Integer voteCount;
+        @SerializedName("id")
+        @Expose
+        private Integer id;
+        @SerializedName("video")
+        @Expose
+        private Boolean video;
         @SerializedName("vote_average")
         @Expose
         private Double voteAverage;
@@ -41,8 +44,34 @@ import java.io.Serializable;
 
 
 
+        public MoviesData(String posterPath,  String overview, String releaseDate, Integer id,
+                          String originalTitle,  Double popularity,
+                          Integer voteCount, Double voteAverage) {
+            this.posterPath = posterPath;
+
+            this.overview = overview;
+            this.releaseDate = releaseDate;
+
+            this.id = id;
+            this.originalTitle = originalTitle;
+
+            this.popularity = popularity;
+            this.voteCount = voteCount;
+            this.voteAverage = voteAverage;
+        }
 
 
+        public void setVoteCount(Integer voteCount) {
+            this.voteCount = voteCount;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
 
 
         public Double getVoteAverage() {
@@ -77,8 +106,6 @@ import java.io.Serializable;
             this.posterPath = posterPath;
         }
 
-
-
         public String getOriginalTitle() {
             return originalTitle;
         }
@@ -86,8 +113,6 @@ import java.io.Serializable;
         public void setOriginalTitle(String originalTitle) {
             this.originalTitle = originalTitle;
         }
-
-
 
 
         public String getOverview() {

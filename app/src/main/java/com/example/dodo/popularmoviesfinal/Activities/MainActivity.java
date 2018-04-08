@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**The correct would be create a object that contains a list of movies.
  *  Then, you can create the API interface returns that responde object. */
 
-@SuppressWarnings("ALL")
+
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler
 
 {
@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String BASE_URL = "http://api.themoviedb.org/3/";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
     private static Retrofit retrofit = null;
 
     private MoviesAdapter moviesAdapter;
 
-  private final static String API_KEY = "add api key";
+    public static final String  API_KEY = "put ur api key\n";
 
   //  private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         // Initialize recycler view
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-      MoviesAdapter moviesAdapter = new MoviesAdapter(new ArrayList<MoviesData>(),this, this);
+     moviesAdapter = new MoviesAdapter(new ArrayList<MoviesData>(),this, this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         recyclerView.setAdapter(moviesAdapter);
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
         Call<MovieResponse> call = movieApiService.getPopular(API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
-            @SuppressWarnings("ConstantConditions")
+
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<MoviesData> mMovieList = response.body().getResults();
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         ApiInterface movieApiService = retrofit.create(ApiInterface.class);
         Call<MovieResponse> call = movieApiService.getTop_rated(API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
-            @SuppressWarnings("ConstantConditions")
+
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 List<MoviesData> mMovieList = response.body().getResults();
@@ -179,9 +179,9 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     }
 
 
-    public boolean isOnline() {
+    public boolean isOnline(Context context) {
         ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
