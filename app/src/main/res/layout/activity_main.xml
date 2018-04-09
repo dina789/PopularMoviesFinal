@@ -5,11 +5,12 @@
 android:layout_height="fill_parent"
         tools:ignore="MergeRootFrame">
 
-
-
-    <android.support.v7.widget.RecyclerView
-
-        android:id="@+id/recycler_view"
+  <android.support.v7.widget.RecyclerView
+   android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
+
+
 </FrameLayout>

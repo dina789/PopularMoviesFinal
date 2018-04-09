@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,13 +41,13 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static final String BASE_URL = "http://api.themoviedb.org/3/movie/";
 
     private static Retrofit retrofit = null;
 
     private MoviesAdapter moviesAdapter;
 
-    public static final String  API_KEY = "\n";
+    public static final String  API_KEY = "";
 
   //  private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -72,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
-
-
-
 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -141,13 +139,14 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         call.enqueue(new Callback<MovieResponse>() {
 
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
+
                 List<MoviesData> mMovieList = response.body().getResults();
                 moviesAdapter.setItems(mMovieList);
             }
 
             @Override
-            public void onFailure(Call< MovieResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call< MovieResponse> call, Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
             }
@@ -169,13 +168,14 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         call.enqueue(new Callback<MovieResponse>() {
 
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
+
                 List<MoviesData> mMovieList = response.body().getResults();
                 moviesAdapter.setItems(mMovieList);
             }
 
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<MovieResponse> call, @NonNull Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
             }
@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     public boolean isOnline(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
