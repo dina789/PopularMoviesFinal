@@ -21,7 +21,7 @@ public class MovieResponse implements Serializable
     @SerializedName("results")
     @Expose
 
-    private List<MoviesData> results = null;
+    private List<MoviesData> results;
     private final static long serialVersionUID = 1285914777228284716L;
 
     /**
