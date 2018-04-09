@@ -1,1 +1,2 @@
-/build
+
+git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch <path-to-your-file>' --prune-empty --tag-name-filt/build
