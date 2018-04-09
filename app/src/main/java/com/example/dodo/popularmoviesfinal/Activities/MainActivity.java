@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     private MoviesAdapter moviesAdapter;
 
-    public static final String  API_KEY = "";
+    public static final String  API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
 
   //  private SwipeRefreshLayout swipeRefreshLayout;
 
