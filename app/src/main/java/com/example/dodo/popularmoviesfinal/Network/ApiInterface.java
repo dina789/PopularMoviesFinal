@@ -18,11 +18,22 @@ public interface ApiInterface {
 
   Call<MovieResponse> getTop_rated(@Query("api_key") String API_KEY);
 
+
+
+  @GET("/3/movie/videos")
+
+  Call<MovieResponse> getVideo(@Query("api_key") String API_KEY);
+
+
+
+
+
   @GET("/3/movie/popular")
   Call<MovieResponse> getPopular(@Query("api_key") String API_KEY);
 
-}
-
+}/**
+  To fetch trailers you will want to make a request to the /movie/{id}/videos endpoint.
+        To fetch reviews you will want to make a request to the /movie/{id}/reviews endpoint
 
 
 /*

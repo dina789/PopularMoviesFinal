@@ -78,6 +78,15 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+
+        if (id==R.id.Favourite)
+        {
+
+            Intent gotofav = new Intent(MainActivity.this, Favourite_Activity.class);
+            startActivity(gotofav);
+            finish();
+        }
         if (id == R.id.most_popular) {
             fetchMostPopular();
             return true;
@@ -206,6 +215,26 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
 //https://github.com/schordas/RetroStack/blob/master/app/src/main/java/com/android/chordas/retrostack/MainActivity.java
 /*
+
+
+
+Now I assume I would pass the ID to the reviews url
+
+https://api.themoviedb.org/3/movie/346364/reviews?api_key=API_KEY
+
+and to the videos URL
+
+https://api.themoviedb.org/3/movie/346364/videos?api_key=API_KEY
+
+Then I will make two more networks calls(I like Loaders more than AsyncTask) and display the selected movie’s
+ trailers and reviews in different recycler views. Is that correct?
+And finally If I want I can select that movie as a favourite and store it in the db.
+
+https://discussions.udacity.com/t/popular-movies-part-2-my-thoughts/553060
+
+on asynctask loaders:
+https://google-developer-training.gitbooks.io/android-developer-fundamentals-course-concepts/content/en/Unit%203/71c_asynctask_and_asynctaskloader_md.html
+
 //https://www.youtube.com/watch?v=OOLFhtyCspA&t=3625s
         //https://classroom.udacity.com/nanodegrees/nd801/parts/9bb83157-0407-47dc-b0c4-c3d4d7dc66df/modules/418d7086-8596-4c73-8d1b-8bddef80c116/lessons/5a9d75c2-eb50-4a06-b1ed-b30645f27fdf/concepts/73e97b9e-4ca1-4520-baa1-1f475f5b7bfb
 
