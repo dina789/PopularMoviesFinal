@@ -33,6 +33,8 @@ public class Details_Activity extends AppCompatActivity {
         TextView text_original_title = findViewById(R.id.text_original_title);
         ImageView image_poster = findViewById(R.id.image_poster);
 
+    final Integer movieId = movieModel.getId();
+
 
         Picasso.with(getBaseContext()).load("http://image.tmdb.org/t/p/w500/" + movieModel.getPosterPath()).into(image_poster);
 
@@ -51,11 +53,55 @@ public class Details_Activity extends AppCompatActivity {
 
 
 
+   /** for reference
+     * Setup the floating button of add to favourite
+     */
+   /**
+    private void setupFloatingActionButton() {
+   floating_favorite= (FloatingActionButton) findViewById(R.id.floating_favorite);
 
+        floating_favorite.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (favoritesService.isFavorite(bundle)) {
+                    favoritesService.removeFromFavorites(bundle);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Romoved from Favourites", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                        //Utility.showToast(getApplicationContext(), "Removed from Favourite!");
+                    fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_thumb_up_white_24dp));
+                } else {
+                    favoritesService.addToFavorites(bundle);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout, "Added to Favourites", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                        //Utility.showToast(getApplicationContext(), "Added to Favourite!");
+                        fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_thumb_down_white_24dp));
+                }
+            }
+        });
     }
 
 
+**/
 
-}
+ }
 
+
+
+
+
+
+public void onClickAddtofav(String movieTitle, String movieId) {}
+
+    ContentValues contentValues = new android.content.ContentValues();
+       contentValues.put(Fav_contract.Favourite_entry.COLUMN_MOVIE_FAVOURITE_TITLE,text_original_title );
+    contentValues.put(Fav_contract.Favourite_entry.COLUMN_MOVIE_ID, movieId );
+
+    Uri uri = getContentResolver().insert(Fav_contract.Favourite_entry.CONTENT_URI, contentValues);
+
+
+}/**
+//onclick fav button
+https://discussions.udacity.com/t/how-to-add-the-favourite-function/255658/2
+https://discussions.udacity.com/t/favourite-movie-is-not-deleted/573209/10
 //https://findusages.com/search/info.movito.themoviedbapi.model.MovieDb/getReleaseDate$0?offset=1
+*/

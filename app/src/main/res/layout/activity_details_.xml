@@ -28,6 +28,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
+
     <ImageView
         android:id="@+id/image_poster"
         android:layout_width="wrap_content"
@@ -44,7 +45,16 @@
         android:contentDescription="TODO"
         tools:ignore="ContentDescription,HardcodedText,UnusedAttribute" />
 
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:clickable="true"
+            android:onClick="onClickAddtofav"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+           />
         <RatingBar
             android:id="@+id/rating_bar"
             style="?android:attr/ratingBarStyleSmall"
@@ -102,16 +112,6 @@
             app:layout_constraintTop_toBottomOf="@+id/text_vote_average"
             tools:ignore="HardcodedText" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
-
-            app:srcCompat="@android:drawable/btn_star_big_on" />
 
 
 
