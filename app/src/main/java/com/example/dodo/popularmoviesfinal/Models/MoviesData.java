@@ -1,5 +1,7 @@
 package com.example.dodo.popularmoviesfinal.Models;
 
+import android.net.Uri;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -144,8 +146,8 @@ public class MoviesData implements Serializable
         this.popularity = popularity;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public Uri getPosterPath() {
+        return Uri.parse(posterPath);
     }
 
     public void setPosterPath(String posterPath) {

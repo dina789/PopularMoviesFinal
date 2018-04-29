@@ -103,6 +103,7 @@ public class MyContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
@@ -134,15 +135,20 @@ public class MyContentProvider extends ContentProvider {
 
                 return retCursor;
             }
-            default: {
+            default: throw new UnsupportedOperationException("Unknown uri: " + uri);
+
+
+            }
+
+// notification uri on cursor
+
 
         // TODO: Implement this to handle query requests from clients.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }}
-
-
-
     }
+
+
+
+
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,
@@ -154,6 +160,9 @@ public class MyContentProvider extends ContentProvider {
 
 
 /**
+*
+*
+* https://github.com/udacity/ud851-Exercises/blob/student/Lesson09-ToDo-List/T09.05-Solution-QueryAllTasks/app/src/main/java/com/example/android/todolist/AddTaskActivity.java
  * Even, to request for the trailers and reviews, first we’ll need to get the movie ID.
  * This means that when selecting a movie from the “Favorites” list,
  * we would need the movie ID from the JSON to build the URLs to get the trailers and reviews.

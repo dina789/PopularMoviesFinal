@@ -13,13 +13,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.dodo.popularmoviesfinal.Adapters.MoviesAdapter;
+import com.example.dodo.popularmoviesfinal.Adapters.UserViewHolder;
 import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.Network.ApiInterface;
 import com.example.dodo.popularmoviesfinal.R;
+import com.leodroidcoder.genericadapter.OnRecyclerItemClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  *  Then, you can create the API interface returns that responde object. */
 
 
-public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler
+public class MainActivity extends AppCompatActivity implements OnRecyclerItemClickListener
 
 {
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     private static Retrofit retrofit = null;
 
-    private MoviesAdapter moviesAdapter;
+    private UserViewHolder.MoviesAdapter moviesAdapter;
 
     public static final String  API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
 
@@ -102,19 +102,19 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     }
 
 
-    @Override
+   // @Override
 
-    public void onClick(MoviesData moviesData) {
-        Intent intent = new Intent(this, Details_Activity.class);
-        intent.putExtra("movieModel", moviesData);
-        startActivity(intent);
-    }
+    //public void onClick(MoviesData moviesData) {
+    //    Intent intent = new Intent(this, Details_Activity.class);
+    //    intent.putExtra("movieModel", moviesData);
+   //     startActivity(intent);
+   // }
 
     private void setupAdapter() {
         // Initialize recycler view
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-     moviesAdapter = new MoviesAdapter(new ArrayList<MoviesData>(),this, this);
+     moviesAdapter = new UserViewHolder.MoviesAdapter(getApplicationContext(), this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         recyclerView.setAdapter(moviesAdapter);
@@ -200,6 +200,16 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+
+    @Override
+    public void onItemClick(int position) {
+        // get the User entity, associated with the clicked item.
+        Intent intent = new Intent(this, Details_Activity.class);
+      // intent.putExtra("movieModel", moviesData);
+        startActivity(intent);
+       // final User clickedUser = adapter.getItem(position);
+        // do whatever you want with it
+    }
 }
 
 
@@ -210,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
 
 
-
+//https://discussions.udacity.com/t/multiple-loaders-in-the-same-fragment/561971
 
 
 //https://github.com/schordas/RetroStack/blob/master/app/src/main/java/com/android/chordas/retrostack/MainActivity.java
