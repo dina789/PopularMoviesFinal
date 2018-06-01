@@ -13,13 +13,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.dodo.popularmoviesfinal.Adapters.UserViewHolder;
+import com.example.dodo.popularmoviesfinal.Adapters.MoviesAdapter;
 import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
 import com.example.dodo.popularmoviesfinal.Models.MoviesData;
 import com.example.dodo.popularmoviesfinal.Network.ApiInterface;
 import com.example.dodo.popularmoviesfinal.R;
 import com.leodroidcoder.genericadapter.OnRecyclerItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,18 +35,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
  *  Then, you can create the API interface returns that responde object. */
 
 
-public class MainActivity extends AppCompatActivity implements OnRecyclerItemClickListener
+public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler
 
 {
 
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
+ //   List<MoviesData>  mMovieList ;
     private static final String BASE_URL = "http://api.themoviedb.org/3/movie/";
 
     private static Retrofit retrofit = null;
 
-    private UserViewHolder.MoviesAdapter moviesAdapter;
+    private MoviesAdapter moviesAdapter;
 
     public static final String  API_KEY = "90cfeb2390166bcd501adabe6f68e59a";
 
@@ -114,8 +115,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerItemCli
         // Initialize recycler view
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-     moviesAdapter = new UserViewHolder.MoviesAdapter(getApplicationContext(), this);
-
+        moviesAdapter = new MoviesAdapter(new ArrayList<MoviesData>(), this,  this);
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         recyclerView.setAdapter(moviesAdapter);
 
@@ -150,12 +150,13 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerItemCli
             @Override
             public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
 
+                assert response.body() != null;
                 List<MoviesData> mMovieList = response.body().getResults();
                 moviesAdapter.setItems(mMovieList);
             }
 
             @Override
-            public void onFailure(@NonNull Call< MovieResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call< MovieResponse> call, @NonNull Throwable t) {
                 // Log error here since request failed
                 Log.e(TAG, t.toString());
             }
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerItemCli
             @Override
             public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {
 
+                assert response.body() != null;
                 List<MoviesData> mMovieList = response.body().getResults();
                 moviesAdapter.setItems(mMovieList);
             }
@@ -200,24 +202,36 @@ public class MainActivity extends AppCompatActivity implements OnRecyclerItemCli
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-
+//recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+   // @Override
+   // public void onClick(View view, int position) {
+   //     Movie movie = movieList.get(position);
+     //   Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+  //  }
     @Override
-    public void onItemClick(int position) {
+    public void onClick(MoviesData moviesData) {
         // get the User entity, associated with the clicked item.
         Intent intent = new Intent(this, Details_Activity.class);
-      // intent.putExtra("movieModel", moviesData);
+        //MoviesData movie = mMovieList.get(position);
+    intent.putExtra("movieModel", moviesData);
         startActivity(intent);
        // final User clickedUser = adapter.getItem(position);
         // do whatever you want with it
     }
+
+
+    // @Override
+    //public void onClick(long date) {
+
+    //}
 }
+//https://code.tutsplus.com/tutorials/getting-started-with-retrofit-2--cms-27792
+//https://discussions.udacity.com/t/youtube-video-via-web-view-in-recycler-view-is-not-loading-in-an-activity/293909/4
+
+//https://discussions.udacity.com/t/recyclerview-view-trailers-and-reviews/310023/15
 
 
-
-
-
-
-
+//https://github.com/AndroidDevScholarship/Android-Project-from-Scratch-Guide
 
 
 //https://discussions.udacity.com/t/multiple-loaders-in-the-same-fragment/561971

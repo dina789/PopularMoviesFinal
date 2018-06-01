@@ -3,21 +3,65 @@ package com.example.dodo.popularmoviesfinal.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.dodo.popularmoviesfinal.Models.MoviesData;
+import com.example.dodo.popularmoviesfinal.Models.ReviewModel;
+import com.example.dodo.popularmoviesfinal.Models.Videomodel;
 import com.example.dodo.popularmoviesfinal.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class Details_Activity extends AppCompatActivity {
-
-
+  //  private Multi_Type_Adap multi_adap;
+    MoviesData moviesData;
+    private List<Videomodel> videos;
+    private List<ReviewModel> reviews;
+    private RecyclerView.LayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_);
+
+
+
+
+
+
+
+//linear recycler view
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(   mLayoutManager );
+
+
+
+// multi view type adapter:
+//add the objects to my adapter
+        //In the following line you are creating an adapter and passing the data..
+        // This calls the adapter constructor, which takes the arguments and assigns them to your variables
+     //   multi_adap = new Multi_Type_Adap(moviesData, reviews,videos, getApplicationContext());
+       // recyclerView.setAdapter(multi_adap);
+
+
+//create a ViewHolder for each view type and the conditionals to load each into your adapter
+
+
+/*
+• The onCreateViewHolder is inflating the layouts.
+
+• The ViewHolderDetails class is catching all gets.
+
+• The onBindViewHolder is getting gets through the ViewHolderDetails class.
+ */
+
+
+
 
         Intent intentGetMovieDetails = getIntent();
 
@@ -69,6 +113,10 @@ android.support.design.widget.FloatingActionButton fabButton = (android.support.
 
 
 /**
+ *
+ *https://discussions.udacity.com/t/recyclerview-view-trailers-and-reviews/310023/3
+ *
+ * https://developers.themoviedb.org/3/movies/get-movie-details
  * //onclick fav button
  * https://discussions.udacity.com/t/how-to-add-the-favourite-function/255658/2
  * https://discussions.udacity.com/t/favourite-movie-is-not-deleted/573209/10

@@ -2,9 +2,11 @@ package com.example.dodo.popularmoviesfinal.Network;
 
 
 import com.example.dodo.popularmoviesfinal.Models.MovieResponse;
+import com.example.dodo.popularmoviesfinal.Models.VideoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -20,18 +22,17 @@ public interface ApiInterface {
 
 
 
-  @GET("/3/movie/videos")
-
-  Call<MovieResponse> getVideo(@Query("api_key") String API_KEY);
-
+  @GET("movie/{movie_id}/videos")
+  Call<VideoResponse> getMovieTrailer(@Path("movie_id") int id, @Query("api_key") String apiKey);
 
 
-
+ // @GET("3 /movie/{id}/reviews")
+ // Call<MovieResponse> getVideo(@Query("api_key") String API_KEY);
 
   @GET("/3/movie/popular")
   Call<MovieResponse> getPopular(@Query("api_key") String API_KEY);
 
-}/**
+}/**https://developers.themoviedb.org/3/movies/get-movie-videos
   To fetch trailers you will want to make a request to the /movie/{id}/videos endpoint.
         To fetch reviews you will want to make a request to the /movie/{id}/reviews endpoint
 
